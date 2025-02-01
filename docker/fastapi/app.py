@@ -11,7 +11,9 @@ ALLOWED_IPS = [
     "10.147.17.221",
     "10.147.17.81",
     "10.147.17.1",
-    "10.147.17.216",  # Servidor principal
+    "10.147.17.216",
+    "172.18.0.1",   # Default Docker bridge network
+    "127.0.0.1",    # Localhost inside the container
 ]
 
 # Lista de URLs permitidas (CORS)
@@ -21,7 +23,9 @@ ALLOWED_ORIGINS = [
     "http://10.147.17.221",
     "http://10.147.17.81",
     "http://10.147.17.1",
-    "http://10.147.17.216",  # Servidor principal
+    "http://10.147.17.216",
+    "http://172.18.0.1",
+    "http://127.0.0.1",
 ]
 
 # Middleware CORS
@@ -32,6 +36,18 @@ app.add_middleware(
     allow_methods=["*"],           # Permitir todos os métodos HTTP
     allow_headers=["*"],           # Permitir todos os cabeçalhos
 )
+
+@app.middleware("http")
+async def check_ip(request: Request, call_next):
+    client_ip = request.client.host
+    print(f"Incoming request from IP: {client_ip}")  # Debugging
+
+    if client_ip not in ALLOWED_IPS:
+        print(f"Blocked request from IP: {client_ip}")  # Debugging
+        raise HTTPException(status_code=403, detail="Access forbidden: IP not allowed.")
+    
+    return await call_next(request)
+
 
 # Middleware para verificar os IPs permitidos
 @app.middleware("http")

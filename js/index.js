@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       chatInput.value = "";
 
       try {
-         const response = await fetch("http://10.147.17.216:5005/ask?prompt=" + encodeURIComponent(prompt + userMessage));
+         const response = await fetch("http://10.147.17.5:5005/ask?prompt=" + encodeURIComponent(prompt + userMessage));
          const data = await response.json();
          appendMessage("Buddy", data.response || "Sorry, I didn't understand that.");
       } catch (error) {
