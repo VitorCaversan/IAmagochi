@@ -7,22 +7,20 @@
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <link rel="stylesheet" href="css/global.css">
    <link rel="stylesheet" href="css/index.css">
+   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
    <script src="js/index.js"></script>
 </head>
 <body>
    <!-- Background overlay -->
    <div class="container">
       <header class="header">
-         <div id="calendar-overlay"></div>
-
          <!-- CALENDAR PART -->
          <div class="settings-icon"><img src="images/configButton.png" alt="Settings"></div>
          <div class="home">
             <a href="createPet.html">
-                <img src="images/homeTitle.png" alt="Home">
+               <img src="images/homeTitle.png" alt="Home">
             </a>
-        </div>
-         <div>
+         </div>
          <button id="calendar-toggle-button">
             <!-- Calendar Icon SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
@@ -32,103 +30,96 @@
                <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
          </button>
-         </div>
-
-         <section class="calendar" id="calendar">
-            <h1>Busy Calendar</h1>
-            <ul class="days">
-               <li class="day" data-day="Monday">
-                     <h2>Monday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Tuesday">
-                     <h2>Tuesday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Wednesday">
-                     <h2>Wednesday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Thursday">
-                     <h2>Thursday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Friday">
-                     <h2>Friday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Saturday">
-                     <h2>Saturday</h2>
-                     <ul class="hours"></ul>
-               </li>
-               <li class="day" data-day="Sunday">
-                     <h2>Sunday</h2>
-                     <ul class="hours"></ul>
-               </li>
-            </ul>
-         
-            <button id="calendar-config-button">Config</button>
-         </section>
-         
-         <dialog id="studyTimePopup" class="popup">
-            <div class="popup-content">
-               <span class="close-popup">&times;</span>
-               <p>When do you study?</p>
-               <button class="popup-option" data-answer="Morning">Morning</button>
-               <button class="popup-option" data-answer="Afternoon">Afternoon</button>
-               <button class="popup-option" data-answer="Morning-Afternoon">Morning and afternoon</button>
-            </div>
-         </dialog>
-         
-         <dialog id="sleepTimePopup" class="popup">
-            <div class="popup-content">
-               <span class="close-popup">&times;</span>
-               <p>When do you go to sleep?</p>
-               <button class="popup-option" data-answer="19h">19h</button>
-               <button class="popup-option" data-answer="20h">20h</button>
-               <button class="popup-option" data-answer="21h">21h</button>
-               <button class="popup-option" data-answer="22h">22h</button>
-            </div>
-         </dialog>
       </header>
 
+      <div id="calendar-overlay"></div>
+      <section class="calendar" id="calendar">
+         <h1>Busy Calendar</h1>
+         <ul class="days">
+            <li class="day" data-day="Monday">
+                  <h2>Monday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Tuesday">
+                  <h2>Tuesday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Wednesday">
+                  <h2>Wednesday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Thursday">
+                  <h2>Thursday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Friday">
+                  <h2>Friday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Saturday">
+                  <h2>Saturday</h2>
+                  <ul class="hours"></ul>
+            </li>
+            <li class="day" data-day="Sunday">
+                  <h2>Sunday</h2>
+                  <ul class="hours"></ul>
+            </li>
+         </ul>
+      
+         <button id="calendar-config-button">Config</button>
+      </section>
+      
+      <dialog id="studyTimePopup" class="popup">
+         <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <p>When do you study?</p>
+            <button class="popup-option" data-answer="Morning">Morning</button>
+            <button class="popup-option" data-answer="Afternoon">Afternoon</button>
+            <button class="popup-option" data-answer="Morning-Afternoon">Morning and afternoon</button>
+         </div>
+      </dialog>
+      
+      <dialog id="sleepTimePopup" class="popup">
+         <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <p>When do you go to sleep?</p>
+            <button class="popup-option" data-answer="19h">19h</button>
+            <button class="popup-option" data-answer="20h">20h</button>
+            <button class="popup-option" data-answer="21h">21h</button>
+            <button class="popup-option" data-answer="22h">22h</button>
+         </div>
+      </dialog>
+
       <!-- CHAT PART -->
-      <div class="mainContent">
-         <div class="cat-container">
-            <div class="cat-info">
-               <p class="level">LEVEL 1</p>
-               <p class="pet-name">PET_NAME</p>
-            </div>
-
-            
-            <div class="cat-sprite"></div>
+      <div class="petContainer">
+         <div class="petInfo">
+            <p class="level">LEVEL 1</p>
+            <p class="pet-name">PET_NAME</p>
          </div>
-
-            <div class="image-container">
-               <img src="images/talkBaloon.png" alt="AI Input Background">
-               <div id="chat-display">
-               </div>
-           </div>
-         
-
-         <div class="status">
-            <img src="images/statusButton.png" alt="Status">
-        </div>
+         <div class="cat-sprite"></div>
       </div>
-      <div class="bottomPart">
-         <div class="play"><img src="images/playButton.png" alt="play"></div>
-         <div class="balloon-container">
-            <div class="img-input-container">
-             <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
-             <input type="text" class="overlay-input" id="chat-input"placeholder="Escreva aqui...">
-            </div>
-             <button id="chat-send-button">Enviar</button>
-         </div>
-         <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
-     </div>
-     
-     <div class="bottom-left-image">
-        <img src="images/arvorePixelada2.png" alt="Left Image">
+
+      <div class="talkBaloonContainer">
+         <img src="images/talkBaloon.png" alt="AI Input Background">
+         <div id="chat-display"></div>
+      </div>
+
+      <div class="status">
+         <img src="images/statusButton.png" alt="Status">
+      </div>
+
+      <div class="play"><img src="images/playButton.png" alt="play"></div>
+
+      <div class="writeBaloonContainer">
+         <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
+         <input type="text" id="chat-input" placeholder="Escreva aqui...">
+         <button id="chat-send-button">Enviar</button>
+      </div>
+
+      <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
+      
+      <div class="bottom-left-image">
+         <img src="images/arvorePixelada2.png" alt="Left Image">
       </div>
       
       <div class="bottom-right-image">
