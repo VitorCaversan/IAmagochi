@@ -48,7 +48,6 @@ main {
       "header"
       "form"
       "footer";
-   gap: 5px;
    text-align: center;
    max-height: 100vh;
 }
@@ -64,7 +63,8 @@ form {
       "species     pronoun     petImg"
       "personality description createBtn";
    gap: 10px;
-   padding: 10px;
+   padding: 0.6%;
+   background-color: #f7e3b5;
 }
 
 /* Header */
