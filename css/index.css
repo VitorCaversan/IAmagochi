@@ -67,7 +67,6 @@ body {
    justify-content: right;
    justify-items: right;
    align-items: center;
-   align-content: right;
    height: 100%;
    width: 100%;
 }
@@ -157,7 +156,7 @@ body {
    height: 40%;
    display: flex;
    justify-self: right;
-   align-self: top;
+   align-self: start;
    position: relative;
    right: 20px;
    cursor: pointer;
@@ -185,7 +184,7 @@ body {
    height: 40%;
    display: flex;
    justify-self: left;
-   align-self: top;
+   align-self: start;
    position: relative;
    left: 20px;
    cursor: pointer;
