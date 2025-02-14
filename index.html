@@ -8,7 +8,6 @@
    <link rel="stylesheet" href="css/global.css">
    <link rel="stylesheet" href="css/index.css">
    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-   <script src="js/index.js"></script>
 </head>
 <body>
    <!-- Background overlay -->
@@ -96,7 +95,7 @@
             <p class="level">LEVEL 1</p>
             <p class="pet-name">PET_NAME</p>
          </div>
-         <div class="cat-sprite"></div>
+         <div class="petSprite"></div>
       </div>
 
       <div class="talkBaloonContainer">
@@ -106,14 +105,18 @@
 
       <div class="status">
          <img src="images/statusButton.png" alt="Status">
+         <meter id="anger" min="0" max="10" value="0" high="0"></meter>
+         <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
+         <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
+         <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
       </div>
 
       <div class="play"><img src="images/playButton.png" alt="play"></div>
 
       <div class="writeBaloonContainer">
          <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
-         <input type="text" id="chat-input" placeholder="Escreva aqui...">
-         <button id="chat-send-button">Enviar</button>
+         <input type="text" id="chat-input" placeholder="Write here...">
+         <button id="chat-send-button">Send</button>
       </div>
 
       <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
@@ -130,8 +133,7 @@
       </footer>
    </div>
 
-
+   <script type="module" src="js/index.js"></script>
    <script type="module" src="js/petDisplay.js"></script>
-   <script type="module" src="js/petStorage.js"></script>
 </body>
 </html>

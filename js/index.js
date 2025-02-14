@@ -1,3 +1,5 @@
+import { savePet } from './petStorage.js';
+
 document.addEventListener("DOMContentLoaded", () => {
    const chatDisplay = document.getElementById("chat-display");
    const chatInput = document.getElementById("chat-input");

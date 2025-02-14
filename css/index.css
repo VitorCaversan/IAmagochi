@@ -53,12 +53,11 @@ body {
    height: 40px;
 }
 
-.settings-icon img, .calendar-icon img, .play img, .feed img, .home img, .status img, .play img, .feed img, .talkBaloonContainer img, .talk-box img {
+.settings-icon img, .calendar-icon img, .play img, .feed img, .home img, .talk-box img {
    width: 100%;
    height: 100%;
    object-fit: contain;
 }
-
 .petContainer {
    grid-area: pet;
    display: flex;
@@ -79,7 +78,7 @@ body {
    left: 100%;
 }
 
-.cat-sprite {
+.petSprite {
    width: 50%;
    height: 50%;
    background-size: contain;
@@ -90,7 +89,7 @@ body {
    left: 20%;
 }
 
-.cat-sprite:hover {
+.petSprite:hover {
    transform: scale(9);
    cursor: pointer;
 }
@@ -101,22 +100,59 @@ body {
    flex-direction: column;
    align-self: center;
    justify-self: center;
-   width: 80%;
-   height: 80%
+   width: 100%;
+   height: 40vh;
+   position: relative;
 }
 
+/* STATUS */
 .status {
    grid-area: status;
-   width: 70%;
-   height: 70%;
-   padding: 20px;
    display: flex;
-   justify-self: left;
+   justify-self: center;
    align-self: center;
+   justify-content: left;
+   justify-items: left;
+   align-items: start;
+   align-content: start;
+   width: 100%;
+   height: 40vh;
+   position: relative;
+}
+.status img {
+   height: 100%;
+   width: auto;
+   object-fit: contain;
+   position: absolute;
+   z-index: 1;
+   left: 6%;
+}
+.status meter {
+   position: absolute;
+   z-index: 2;
+   width: 31%;
+   height: 100%;
+}
+#anger {
+   top: -30%;
+   left: 20%;
+}
+#happiness {
+   top: -10%;
+   left: 20%;
+}
+#sleepiness {
+   top: 11%;
+   left: 20%;
+}
+#hunger {
+   top: 33%;
+   left: 20%;
 }
 
 .play {
    grid-area: playBtn;
+   margin-top: 10%;
    width: 40%;
    height: 40%;
    display: flex;
@@ -124,10 +160,27 @@ body {
    align-self: top;
    position: relative;
    right: 20px;
+   cursor: pointer;
+}
+
+.writeBaloonContainer {
+   grid-area: chatInput;
+   display: flex;
+   flex-direction: column;
+   align-self: start;
+   justify-self: center;
+   justify-content: center;
+   align-content: center;
+   align-items: center;
+   justify-items: center;
+   height: 100%;
+   width: 100%;
+   position: relative;
 }
 
 .feed {
    grid-area: feedBtn;
+   margin-top: 10%;
    width: 40%;
    height: 40%;
    display: flex;
@@ -135,6 +188,7 @@ body {
    align-self: top;
    position: relative;
    left: 20px;
+   cursor: pointer;
 }
 
 footer {
@@ -155,48 +209,43 @@ footer {
 
 /* CHAT BOX */
 
+.talkBaloonContainer img {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 1;
+}
+
 #chat-display {
    position: absolute;
-   top: 50%; 
-   left: 55%;
-   transform: translate(-50%, -50%);
-   width: 75%;
-   height: 55%;
+   width: 80%;
+   height: 80%;
+   object-fit: contain;
    padding: 10px;
-   border: none;
+   border: 1px solid #ccc;
    font-size: 16px;
    text-align: start;
    border-radius: 5px;
-}
-
-.writeBaloonContainer {
-   grid-area: chatInput;
-   display: flex;
-   flex-direction: column;
-   align-self: start;
-   justify-self: center;
-   justify-content: center;
-   align-content: center;
-   align-items: center;
-   justify-items: center;
-   height: 100%;
+   z-index: 2;
+   left: 15%;
+   top: 10%;
 }
 
 .talk-box {
    width: 100%;
-   height: 100%;
-   position: relative;
+   position: absolute;
+   z-index: 1;
 }
 
 #chat-input {
-   position: relative;
-   bottom: 0;
+   position: absolute;
+   z-index: 2;
    width: 75%;
-   height: 50%;
+   height: 30%;
+   left: 21%;
+   border-radius: 2px;
    padding: 10px;
    border: none;
-   left: 10%;
-   top: -45%;
    background: rgba(255, 255, 255, 0.8); /* Optional: Add background for better visibility */
 }
 
@@ -205,11 +254,11 @@ footer {
    background-color: #b1d690;
    color: white;
    border: none;
-   border-radius: 50px;
+   border-radius: 50%;
    cursor: pointer;
-   width: 50px;
-   height: 50px;
-   top: -30%;
+   width: 15%;
+   height: 15%;
+   top: 35%;
 }
 
 #chat-send-button:hover {
@@ -280,22 +329,6 @@ footer {
 }
 
 /* Calendar Section */
-#calendar {
-   width: 90%;
-   max-width: 1000px;
-   padding: 20px;
-   text-align: center;
-   background-color: #fff;
-   border: 1px solid #ccc;
-   border-radius: 8px;
-   display: none; /* Hidden by default */
-   position: fixed; /* Make it a fixed position popup */
-   top: 50%; /* Center vertically */
-   left: 50%; /* Center horizontally */
-   transform: translate(-50%, -50%); /* Center the element */
-   z-index: 1000; /* Ensure it appears above other elements */
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for better visibility */
-}
 
 /* Background overlay */
 #calendar-overlay {
@@ -306,7 +339,26 @@ footer {
    width: 100%;
    height: 100%;
    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-   z-index: 999; /* Ensure it appears below the calendar but above other elements */
+   z-index: 499; /* Ensure it appears below the calendar but above other elements */
+}
+
+#calendar {
+   width: 90%;
+   max-width: 1000px;
+   max-height: 100%;
+   overflow-y: auto; /* Add vertical scroll when content surpasses max height */
+   padding: 20px;
+   text-align: center;
+   background-color: #fff;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   display: none; /* Hidden by default */
+   position: fixed; /* Make it a fixed position popup */
+   top: 50%; /* Center vertically */
+   left: 50%; /* Center horizontally */
+   transform: translate(-50%, -50%); /* Center the element */
+   z-index: 500; /* Ensure it appears above other elements */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for better visibility */
 }
 
 .days {
@@ -375,21 +427,25 @@ footer {
    position: fixed;
    left: 0;
    top: 0;
-   width: 100%;
-   height: 100%;
+   width: 100vw;
+   height: 100vh;
    overflow: auto;
    background-color: rgba(0, 0, 0, 0.4);
+   z-index: 501;
 }
 
 .popup-content {
    background-color: #fff;
-   margin: 15% auto;
+   left: 35%;
+   top: 40%;
    padding: 20px;
    border: 1px solid #888;
    width: 80%;
    max-width: 400px;
    border-radius: 8px;
    text-align: center;
+   position: absolute;
+   z-index: 501;
 }
 
 .close-popup {
