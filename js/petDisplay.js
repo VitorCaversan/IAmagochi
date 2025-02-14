@@ -14,7 +14,7 @@ function updatePetDisplay() {
     }
 
     // Update pet sprite based on species
-    const catSprite = document.querySelector('.cat-sprite');
+    const catSprite = document.querySelector('.petSprite');
     if (catSprite) {
         let spriteUrl = '';
         switch (pet.species) {
