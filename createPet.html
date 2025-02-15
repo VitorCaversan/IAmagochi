@@ -1,88 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Create pet Page</title>
-   <link rel="stylesheet" href="css/global.css">
-   <link rel="stylesheet" href="css/createPet.css">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Pet Page</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/createPet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-   <main>
-      <script type="module" src="js/createPet.js"></script>
-      <header>
-         <h1>Welcome to IAmagochi</h1>
-      </header>
+  <main>
+    <script type="module" src="js/createPet.js"></script>
+
+    <!-- New Header -->
+    <header class="header">
+      <button class="settings-icon">
+        <img src="images/configButton.png" alt="Settings">
+      </button>
+      <h1 class="header-title">Character Creation</h1>
+    </header>
+
+    <!-- The Form (with title & cfgBtn removed) -->
+    <form id="petForm">
+      <div class="petName">
+        <label for="petName">Pet Name:</label>
+        <input id="petName" type="text" required>
+      </div>
+
+      <div class="yNickName">
+        <label for="nickname">Your Nickname:</label>
+        <input id="nickname" type="text" required>
+      </div>
+
+      <div class="petImg">
+        <img id="tree" src="images/arvorePixelada.png" alt="Tree background">
+        <img id="pet" src="../images/gifs/Empty.png" alt="Pet image">
+      </div>
       
-      <form id="petForm">
-         <h2 class="title">Character<br>Creation</h2>
-   
-         <button type="button" class="cfgBtn"></button>
+      <div class="species">
+        <label class="selectionHeader">Species:</label>
+        <div class="selectionOptions" id="species">
+          <label class="option"><input type="radio" name="species" value="cat" required>🐈 Cat</label>
+          <label class="option"><input type="radio" name="species" value="unicorn">🦄 Unicorn</label>
+          <label class="option"><input type="radio" name="species" value="dragon">🐉 Dragon</label>
+        </div>
+      </div>
 
-         <div class="petName">
-            <label for="petName">Pet Name:</label>
-            <input id="petName" type="text" required>
-         </div>
+      <div class="pronoun">
+        <label class="question">What are your pronouns?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="pronouns" value="he/him" required> He/Him</label>
+          <label><input type="radio" name="pronouns" value="she/her"> She/Her</label>
+          <label><input type="radio" name="pronouns" value="they/them"> They/Them</label>
+        </div>
+      </div>
 
-         <div class="yNickName">
-            <label for="nickname">Your Nickname:</label>
-            <input id="nickname" type="text" required>
-         </div>
+      <section class="personality">
+        <h2>Personality</h2>
+        <div class="meter-container">
+          <label for="anger">Anger:</label>
+          <meter id="anger" min="0" max="10" value="0" high="0"></meter>
+        </div>
+        <div class="meter-container">
+          <label for="happiness">Happiness:</label>
+          <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
+        </div>
+        <div class="meter-container">
+          <label for="sadness">Sadness:</label>
+          <meter id="sadness" min="0" max="10" value="0" high="0"></meter>
+        </div>
+      </section>
 
-         <div class="petImg">
-            <img id="tree" src="images/arvorePixelada.png" alt="Tree background">
-            <img id="pet" src="../images/gifs/Empty.png" alt="Pet image">
-         </div>
-         
-         <div class="species">
-            <label class="selectionHeader">Species:</label>
-            <div class="selectionOptions" id="species">
-               <label class="option"><input type="radio" name="species" value="cat" required>🐈 Cat</label>
-               <label class="option"><input type="radio" name="species" value="unicorn">🦄 Unicorn</label>
-               <label class="option"><input type="radio" name="species" value="dragon">🐉 Dragon</label>
-            </div>
-         </div>
+      <div class="description">
+        <h2>Pet Description</h2>
+        <p id="descriptionText"></p>
+      </div>
 
-         <div class="pronoun">
-            <label class="question">What are your pronouns?</label>
-            <div class="radio-group">
-               <label><input type="radio" name="pronouns" value="he/him" required> He/Him</label>
-               <label><input type="radio" name="pronouns" value="she/her"> She/Her</label>
-               <label><input type="radio" name="pronouns" value="they/them"> They/Them</label>
-            </div>
-         </div>
+      <button type="submit" class="createBtn">Create</button>
+    </form>
 
-         <section class="personality">
-            <h2>Personality</h2>
-            <div class="meter-container">
-               <label for="anger">Anger:</label>
-               <meter id="anger" min="0" max="10" value="0" high="0"></meter>
-            </div>
-            <div class="meter-container">
-               <label for="happiness">Happiness:</label>
-               <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
-            </div>
-            <div class="meter-container">
-               <label for="sadness">Sadness:</label>
-               <meter id="sadness" min="0" max="10" value="0" high="0"></meter>
-            </div>
-         </section>
-
-         <div class="description">
-            <h2>Pet Description</h2>
-            <p id="descriptionText"></p>
-         </div>
-
-         <button type="submit" class="createBtn">Create</button>
-      </form>
-
-      <footer>
-         <p>&copy; 2024 IAmagochi. All Rights Reserved.</p>
-      </footer>
-   </main>
-
+    <footer>
+      <p>&copy; 2024 IAmagochi. All Rights Reserved.</p>
+    </footer>
+  </main>
 </body>
 </html>

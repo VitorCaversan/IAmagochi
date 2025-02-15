@@ -192,7 +192,9 @@ body {
 
 footer {
    grid-area: footer;
-   background-color: #ffa24c;
+   background-color: #ffcc80;
+   padding: 10px;
+   font-weight: bold;
    color: white;
    display: flex;
    justify-content: center;
