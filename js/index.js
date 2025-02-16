@@ -32,15 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildPrompt(userMessage) {
     // Build a personality string from the pet's personality values.
     const personality = pet.personality;
-    const personalityStr = `Rage (${personality.anger}/10), Happiness (${personality.happiness}/10), Sadness (${personality.sadness}/10)`;
+    const personalityStr = `Rage (${personality.anger}), Happiness (${personality.happiness}), Sadness (${personality.sadness})`;
 
     // Use pet attributes to indicate hunger and tiredness.
     // (Adjust these calculations as needed based on your attributes' logic.)
     const attributes = pet.attributes;
-    const petHunger = attributes.satiation; // Here, 'satiation' is used as a hunger indicator.
-    const petTiredness = attributes.energy;  // 'energy' indicates tiredness.
+    const petHunger = (10 - attributes.satiation); // Here, 'satiation' is used as a hunger indicator.
+    const petTiredness = (10 - attributes.energy);  // 'energy' indicates tiredness.
 
-    return `Pet Name: ${pet.petName}  User Nickname: ${pet.nickname}  Pet Species: ${pet.species}  Pet Personality: ${personalityStr}  Pet Hunger: ${petHunger}/10  Pet Tiredness: ${petTiredness}/10  Prioritize responding based on the pet's personality and current status. Make sure the response reflects the pet's emotional and physical state (e.g., hunger, tiredness, happiness, sadness, or rage). Use a short, friendly, and engaging tone as the pet would. Keep the language simple, suitable for a child aged 6-12, and make the Buddy sound like a curious and playful creature with a simple mind. user message: ${userMessage}`;
+    return `Pet Name: ${pet.petName}  User Nickname: ${pet.nickname}  Pet Species: ${pet.species}  Pet Personality: ${personalityStr}  Pet Hunger: ${petHunger}  Pet Tiredness: ${petTiredness}  Prioritize responding based on the pet's personality and current status. Make sure the response reflects the pet's emotional and physical state (e.g., hunger, tiredness, happiness, sadness, or rage). Use a short, friendly, and engaging tone as the pet would. Keep the language simple, suitable for a child aged 6-12, and make the Buddy sound like a curious and playful creature with a simple mind. user message: ${userMessage}`;
   }
 
   // Event listener for the chat send button.
@@ -180,4 +180,30 @@ document.addEventListener("DOMContentLoaded", () => {
     calendar.style.display = 'block';
     calendarOverlay.style.display = 'block';
   }
+
+  // -------------------------
+  // STATUS METERS
+  // -------------------------
+  function updateStatusMeters(anger, happiness, sleepiness, satiation) {
+    const angerMeter = document.getElementById('anger');
+    const happinessMeter = document.getElementById('happiness');
+    const sleepinessMeter = document.getElementById('sleepiness');
+    const satiationMeter = document.getElementById('satiation');
+
+    angerMeter.value = anger;
+    happinessMeter.value = happiness;
+    sleepinessMeter.value = sleepiness;
+    satiationMeter.value = satiation;
+
+    // Update the pet's personality values
+    pet.personality.anger = anger;
+    pet.personality.happiness = happiness;
+    pet.attributes.energy = (10 - sleepiness);
+    pet.attributes.satiation = satiation;
+  }
+
+  updateStatusMeters(pet.personality.anger,
+                     pet.personality.happiness,
+                     ((10-pet.attributes.energy)),
+                     (pet.attributes.satiation));
 });
