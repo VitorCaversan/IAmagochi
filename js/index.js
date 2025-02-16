@@ -1,5 +1,8 @@
 import { loadPet } from './petStorage.js';
 
+const METERS_MAX_VALUE = 10;
+const MS_TO_DECREASE_STATUS = 60000; // 60 seconds
+
 document.addEventListener("DOMContentLoaded", () => {
   // Load pet data from storage. If none is found, redirect to pet creation.
   const pet = loadPet();
@@ -32,15 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildPrompt(userMessage) {
     // Build a personality string from the pet's personality values.
     const personality = pet.personality;
-    const personalityStr = `Rage (${personality.anger}/10), Happiness (${personality.happiness}/10), Sadness (${personality.sadness}/10)`;
+    const personalityStr = `Rage (${personality.anger}), Happiness (${personality.happiness}), Sadness (${personality.sadness})`;
 
     // Use pet attributes to indicate hunger and tiredness.
     // (Adjust these calculations as needed based on your attributes' logic.)
     const attributes = pet.attributes;
-    const petHunger = attributes.satiation; // Here, 'satiation' is used as a hunger indicator.
-    const petTiredness = attributes.energy;  // 'energy' indicates tiredness.
+    const petHunger = (METERS_MAX_VALUE - attributes.satiation); // Here, 'satiation' is used as a hunger indicator.
+    const petTiredness = (METERS_MAX_VALUE - attributes.energy);  // 'energy' indicates tiredness.
 
-    return `Pet Name: ${pet.petName}  User Nickname: ${pet.nickname}  Pet Species: ${pet.species}  Pet Personality: ${personalityStr}  Pet Hunger: ${petHunger}/10  Pet Tiredness: ${petTiredness}/10  Prioritize responding based on the pet's personality and current status. Make sure the response reflects the pet's emotional and physical state (e.g., hunger, tiredness, happiness, sadness, or rage). Use a short, friendly, and engaging tone as the pet would. Keep the language simple, suitable for a child aged 6-12, and make the Buddy sound like a curious and playful creature with a simple mind. user message: ${userMessage}`;
+    return `Pet Name: ${pet.petName}  User Nickname: ${pet.nickname}  Pet Species: ${pet.species}  Pet Personality: ${personalityStr}  Pet Hunger: ${petHunger}  Pet Tiredness: ${petTiredness}  Prioritize responding based on the pet's personality and current status. Make sure the response reflects the pet's emotional and physical state (e.g., hunger, tiredness, happiness, sadness, or rage). Use a short, friendly, and engaging tone as the pet would. Keep the language simple, suitable for a child aged 6-12, and make the Buddy sound like a curious and playful creature with a simple mind. user message: ${userMessage}`;
   }
 
   // Event listener for the chat send button.
@@ -180,4 +183,85 @@ document.addEventListener("DOMContentLoaded", () => {
     calendar.style.display = 'block';
     calendarOverlay.style.display = 'block';
   }
+
+  // -------------------------
+  // STATUS METERS
+  // -------------------------
+  function updateStatusMeters(anger, happiness, sleepiness, satiation) {
+    const angerMeter = document.getElementById('anger');
+    const happinessMeter = document.getElementById('happiness');
+    const sleepinessMeter = document.getElementById('sleepiness');
+    const satiationMeter = document.getElementById('satiation');
+
+    angerMeter.value = anger;
+    happinessMeter.value = happiness;
+    sleepinessMeter.value = sleepiness;
+    satiationMeter.value = satiation;
+
+    // Update the pet's personality and attributes ranging from 0 to 10
+    pet.personality.anger = (anger >= 0) ? Math.min(anger, METERS_MAX_VALUE) : 0;
+    pet.personality.happiness = (happiness >= 0) ? Math.min(happiness, METERS_MAX_VALUE) : 0;
+    pet.attributes.energy = (METERS_MAX_VALUE - ((sleepiness >= 0) ? Math.min(sleepiness, METERS_MAX_VALUE) : 0));
+    pet.attributes.satiation = (satiation >= 0) ? Math.min(satiation, METERS_MAX_VALUE) : 0;
+  }
+
+  updateStatusMeters(pet.personality.anger,
+                     pet.personality.happiness,
+                     ((METERS_MAX_VALUE-pet.attributes.energy)),
+                     (pet.attributes.satiation));
+
+  const playBtn = document.querySelector('.play');
+  const feedBtn = document.querySelector('.feed');
+  var   ticksToIncreaseAnger     = 0;
+  var   ticksToDecreaseHappiness = 0;
+
+  playBtn.addEventListener('click', function () {
+    updateStatusMeters((pet.personality.anger + 1),
+                       (pet.personality.happiness + 1),
+                       ((METERS_MAX_VALUE - pet.attributes.energy) + 1),
+                       (pet.attributes.satiation - 1));
+
+    ticksToDecreaseHappiness = 0;
+  });
+
+  feedBtn.addEventListener('click', function () {
+    updateStatusMeters((pet.personality.anger - 1),
+                       (pet.personality.happiness + 1),
+                       ((METERS_MAX_VALUE - pet.attributes.energy) - 1),
+                       (pet.attributes.satiation + 1));
+
+    ticksToIncreaseAnger     = 0;
+    ticksToDecreaseHappiness = 0;
+  });
+
+  // Make energy and satiation drop every time frame
+  setInterval(() => {
+    pet.attributes.energy = Math.max(pet.attributes.energy - 1, 0);
+    pet.attributes.satiation = Math.max(pet.attributes.satiation - 1, 0);
+
+    if (pet.attributes.energy < 4 || pet.attributes.satiation < 4) {
+      ticksToIncreaseAnger++;
+      ticksToDecreaseHappiness++;
+
+      if (ticksToIncreaseAnger >= 3) {
+        pet.personality.anger = Math.min(pet.personality.anger + 1, METERS_MAX_VALUE);
+        ticksToIncreaseAnger = 0;
+      }
+      if (ticksToDecreaseHappiness >= 2) {
+        pet.personality.happiness = Math.max(pet.personality.happiness - 1, 0);
+        ticksToDecreaseHappiness = 0;
+      }
+    }
+
+    updateStatusMeters(
+      pet.personality.anger,
+      pet.personality.happiness,
+      (METERS_MAX_VALUE - pet.attributes.energy),
+      pet.attributes.satiation
+    );
+
+    if (pet.attributes.energy === 0 || pet.attributes.satiation === 0) {
+      alert("Your pet is very hungry or tired! Please feed or let it rest.");
+    }
+  }, MS_TO_DECREASE_STATUS);
 });

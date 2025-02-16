@@ -179,6 +179,8 @@ meter::-webkit-meter-bar {
    position: relative;
    right: 20px;
    cursor: pointer;
+   background-color: transparent;
+   border-color: transparent;
 }
 
 .writeBaloonContainer {
@@ -214,6 +216,8 @@ meter::-webkit-meter-bar {
    position: relative;
    left: 20px;
    cursor: pointer;
+   background-color: transparent;
+   border-color: transparent;
 }
 
 footer {

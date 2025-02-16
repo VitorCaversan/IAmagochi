@@ -69,15 +69,15 @@ form {
    background-color: #f7e3b5;
 }
 
-  header.header {
-    position: relative;
-    background-color: #ffcc80;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-  }
-  
+header.header {
+   position: relative;
+   background-color: #ffcc80;
+   font-weight: bold;
+   display: flex;
+   align-items: center;
+   padding: 10px 20px;
+}
+
 .header-title {
     position: relative;
     left: 50%;
@@ -94,27 +94,27 @@ form {
 
 
 .settings-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
+   background: none;
+   border: none;
+   cursor: pointer;
 }
 
 .settings-icon img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+   width: 40px;
+   height: 40px;
+   object-fit: contain;
 }
 
 .cfgBtn{
-    width: 40px;
-    height: 40px;
- }
- 
+   width: 40px;
+   height: 40px;
+}
+
 .cfgBtn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
- }
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+}
 
 .petName {
     grid-area: petName;
@@ -132,21 +132,21 @@ form {
     min-width: 300px;
 }
 .petName label {
-    margin: 2%;
-    font-size: 1.5em;
-    color: #f8fae5;
-    font-family: 'Press Start 2P';
+   margin: 2%;
+   font-size: 1.5em;
+   color: #f8fae5;
+   font-family: 'Press Start 2P';
 }
 .petName input {
-    align-self: center; /* Align the input element to the bottom */
-    background-color: #f8fae5;
-    height: 20%;
-    width: 70%;
-    padding: 5px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1em;
-    font-family: 'Press Start 2P';
+   align-self: center; /* Align the input element to the bottom */
+   background-color: #f8fae5;
+   height: 20%;
+   width: 70%;
+   padding: 5px;
+   border: none;
+   border-radius: 50px;
+   font-size: 1em;
+   font-family: 'Press Start 2P';
 }
 
 .yNickName {
@@ -165,21 +165,21 @@ form {
     min-width: 300px;
 }
 .yNickName label {
-    margin: 2%;
-    font-size: 1.5em;
-    color: #f8fae5;
-    font-family: 'Press Start 2P';
+   margin: 2%;
+   font-size: 1.5em;
+   color: #f8fae5;
+   font-family: 'Press Start 2P';
 }
 .yNickName input {
-    align-self: center; /* Align the input element to the bottom */
-    background-color: #f8fae5;
-    height: 20%;
-    width: 70%;
-    padding: 5px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1em;
-    font-family: 'Press Start 2P';
+   align-self: center; /* Align the input element to the bottom */
+   background-color: #f8fae5;
+   height: 20%;
+   width: 70%;
+   padding: 5px;
+   border: none;
+   border-radius: 50px;
+   font-size: 1em;
+   font-family: 'Press Start 2P';
 }
 
 .petImg {

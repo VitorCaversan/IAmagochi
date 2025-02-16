@@ -7,12 +7,22 @@ const speciesPersonalities = {
 };
 
 const defaultAttributes = {
-   level: 1,
-   experience: 0,
-   energy: 100, // contrário de sleepiness
-   satiation: 100, // contrário de hunger
-   excitement: 100, // contrário de boredom
-}
+   cat: { level: 1,
+          experience: 0,
+          energy: 5, // contrário de sleepiness
+          satiation: 8, // contrário de hunger
+          excitement: 1}, // contrário de boredom
+   unicorn: { level: 1,
+              experience: 0,
+              energy: 9, // contrário de sleepiness
+              satiation: 10, // contrário de hunger
+              excitement: 10},
+   dragon: { level: 1,
+             experience: 0,
+             energy: 9, // contrário de sleepiness
+             satiation: 1, // contrário de hunger
+             excitement: 4}
+};
 
 function updatePersonality(species) {
    if (species && speciesPersonalities[species]) {
@@ -72,6 +82,7 @@ function createPet() {
    }
 
    const personality = speciesPersonalities[species];
+   const attributes = defaultAttributes[species];
 
    const pet = {
       petName,
@@ -79,7 +90,7 @@ function createPet() {
       pronouns,
       species,
       personality: personality,
-      attributes: defaultAttributes
+      attributes: attributes
    }
    savePet(pet)
 
