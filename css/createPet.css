@@ -9,7 +9,7 @@ body {
    margin: 0;
    padding: 0;
    border-width: 0;
-   background-color: #f7f7f7;
+   background-color: #f7e3b5;
    color: #333;
    display: flex;
    flex-direction: column;
@@ -50,15 +50,17 @@ main {
       "footer";
    text-align: center;
    max-height: 100vh;
+   background-color: #f7e3b5;
 }
 
 form {
    grid-area: form;
+   margin-top: 48px;
+   margin-bottom: 16px;
    display: grid;
    grid-template-columns: 1fr 1fr 1fr;
    grid-template-rows: auto;
    grid-template-areas:
-      ".           title       cfgBtn"
       "petName     yNickName   petImg"
       "species     pronoun     petImg"
       "personality description createBtn";
@@ -77,18 +79,17 @@ header.header {
 }
 
 .header-title {
-   position: relative;
-   left: 50%;
-   transform: translateX(-50%);     
-   font-family: 'Press Start 2P', system-ui;
-   font-size: 1.5em;
-   color: white;
-   justify-content: center;
-   align-items: center;
-   font-size: 2em;
-   background-color: #ffa24c;
-   border-radius: 15px;
-   padding: 15px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);     
+    font-family: 'Press Start 2P', system-ui;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    background-color: #ffa24c;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 
@@ -116,18 +117,19 @@ header.header {
 }
 
 .petName {
-   grid-area: petName;
-   background-color: #b1d690;
-   border-radius: 30px;
-   padding: 10px;
-   display: flex;
-   flex-direction: column;
-   align-self: start; /* Align the grid item to the start */
-   justify-self: center; /* Align the grid item to the center */
-   justify-content: flex-start; /* Align content to the bottom */
-   align-items: center; /* Center content horizontally */
-   height: auto; /* Fit the height to the content */
-   width: 80%;
+    grid-area: petName;
+    background-color: #b1d690;
+    border-radius: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: start; /* Align the grid item to the start */
+    justify-self: center; /* Align the grid item to the center */
+    justify-content: flex-start; /* Align content to the bottom */
+    align-items: center; /* Center content horizontally */
+    height: auto; /* Fit the height to the content */
+    width: 80%;
+    min-width: 300px;
 }
 .petName label {
    margin: 2%;
@@ -148,18 +150,19 @@ header.header {
 }
 
 .yNickName {
-   grid-area: yNickName;
-   background-color: #b1d690;
-   border-radius: 30px;
-   padding: 10px;
-   display: flex;
-   flex-direction: column;
-   align-self: start; /* Align the grid item to the start */
-   justify-self: center; /* Align the grid item to the center */
-   justify-content: flex-start; /* Align content to the bottom */
-   align-items: center; /* Center content horizontally */
-   height: auto; /* Fit the height to the content */
-   width: 80%;
+    grid-area: yNickName;
+    background-color: #b1d690;
+    border-radius: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: start; /* Align the grid item to the start */
+    justify-self: center; /* Align the grid item to the center */
+    justify-content: flex-start; /* Align content to the bottom */
+    align-items: center; /* Center content horizontally */
+    height: auto; /* Fit the height to the content */
+    width: 80%;
+    min-width: 300px;
 }
 .yNickName label {
    margin: 2%;
@@ -219,7 +222,9 @@ header.header {
    background-color: #b1d690;
    border-radius: 20px;
    height: 50%; /* Adjust height to cover half of the grid area */
+   min-height: 64px;
    width: 80%;
+   min-width: 300px;
    padding: 10px;
 }
 .species .selectionOptions {
@@ -238,6 +243,7 @@ header.header {
    cursor: pointer;
    font-size: 16px;
    font-family: 'Press Start 2P';
+   min-width: 200px;
 }
 .option input[type="radio"] {
    margin-right: 10px; /* Add space to the right of the radio buttons */
@@ -254,6 +260,7 @@ header.header {
    justify-self: center; /* Align the grid item to the center */
    height: auto;
    width: 80%;
+   min-width: 300px;
    font-family: 'Press Start 2P';
 }
 .pronoun .question {
@@ -293,6 +300,7 @@ header.header {
    align-items: center;
    height: auto;
    width: 80%;
+   min-width: 300px;
    font-family: 'Press Start 2P';
 }
 .personality h2 {
@@ -360,6 +368,7 @@ header.header {
    align-items: center; /* Center content horizontally */
    height: auto; /* Fit the height to the content */
    width: 80%;
+   min-width: 300px;
 }
 .description h2 {
    margin: 2%;
@@ -382,13 +391,13 @@ header.header {
    text-align: left;
 }
 
-
 .createBtn {
    grid-area: createBtn;
    background-color: #ffa24c;
    border-radius: 30px;
    width:  50%;
-   height: 50%;
+   height: 100px;
+   min-width: 240px;
    display: flex;
    align-self: flex-end;
    justify-self: center;
@@ -420,3 +429,40 @@ footer {
     align-items: center;
  }
  
+ @media (max-width: 1100px) {
+   form {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+         "petName     yNickName"
+         "species     pronoun"
+         "personality description"
+         "petImg      createBtn";
+   }   
+ }
+
+ @media (max-width: 700px) {
+   form {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+         "petName"
+         "yNickName"
+         "species"
+         "pronoun"
+         "personality"
+         "description"
+         "petImg"
+         "createBtn";
+      gap: 32px;
+   }
+
+   .header-title {
+      font-size: 1.5em;
+   }
+ }
+
+ @media (max-width: 500px) {
+   header.header {
+      flex-direction: column-reverse;
+      gap: 16px;
+   }
+ }
