@@ -11,7 +11,7 @@
 </head>
 <body>
    <!-- Background overlay -->
-   <div class="container">
+   <main>
       <header class="header">
          <!-- CALENDAR PART -->
          <div class="settings-icon"><img src="images/configButton.png" alt="Settings"></div>
@@ -88,50 +88,52 @@
             <button class="popup-option" data-answer="22h">22h</button>
          </div>
       </dialog>
-
-      <!-- CHAT PART -->
-      <div class="petContainer">
-         <div class="petInfo">
-            <p class="level">LEVEL 1</p>
-            <p class="pet-name">PET_NAME</p>
+      <div class="container">
+   
+         <!-- CHAT PART -->
+         <div class="petContainer">
+            <div class="petInfo">
+               <p class="level">LEVEL 1</p>
+               <p class="pet-name">PET_NAME</p>
+            </div>
+            <div class="petSprite"></div>
          </div>
-         <div class="petSprite"></div>
-      </div>
-
-      <div class="talkBaloonContainer">
-         <img src="images/talkBaloon.png" alt="AI Input Background">
-         <div id="chat-display"></div>
-      </div>
-
-      <div class="status">
-         <img src="images/statusButton.png" alt="Status">
-         <meter id="anger" min="0" max="10" value="0" high="0"></meter>
-         <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
-         <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
-         <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
-      </div>
-
-      <div class="play"><img src="images/playButton.png" alt="play"></div>
-
-      <div class="writeBaloonContainer">
-         <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
-         <input type="text" id="chat-input" placeholder="Write here...">
-         <button id="chat-send-button">Send</button>
-      </div>
-
-      <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
-      
-      <div class="bottom-left-image">
-         <img src="images/arvorePixelada2.png" alt="Left Image">
-      </div>
-      
-      <div class="bottom-right-image">
-         <img src="images/arvorePixelada2.png" alt="Right Image">
+   
+         <div class="talkBaloonContainer">
+            <img src="images/talkBaloon.png" alt="AI Input Background">
+            <div id="chat-display"></div>
+         </div>
+   
+         <div class="status">
+            <img src="images/statusButton.png" alt="Status">
+            <meter id="anger" min="0" max="10" value="0" high="0"></meter>
+            <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
+            <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
+            <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
+         </div>
+   
+         <div class="play"><img src="images/playButton.png" alt="play"></div>
+   
+         <div class="writeBaloonContainer">
+            <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
+            <input type="text" id="chat-input" placeholder="Write here...">
+            <button id="chat-send-button">Send</button>
+         </div>
+   
+         <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
+         
       </div>
       <footer>
+         <div class="bottom-left-image">
+            <img src="images/arvorePixelada2.png" alt="Left Image">
+         </div>
+         
+         <div class="bottom-right-image">
+            <img src="images/arvorePixelada2.png" alt="Right Image">
+         </div>
          <p>&copy; 2024 IAmagochi. All Rights Reserved.</p>
       </footer>
-   </div>
+   </main>
 
    <script type="module" src="js/index.js"></script>
    <script type="module" src="js/petDisplay.js"></script>
