@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ticksToDecreaseHappiness = 0;
   });
 
-  // Make energy and satiation drop every 10 seconds
+  // Make energy and satiation drop every time frame
   setInterval(() => {
     pet.attributes.energy = Math.max(pet.attributes.energy - 1, 0);
     pet.attributes.satiation = Math.max(pet.attributes.satiation - 1, 0);
