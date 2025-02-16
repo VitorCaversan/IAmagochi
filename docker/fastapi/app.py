@@ -14,6 +14,8 @@ ALLOWED_IPS = [
     "10.147.17.216",
     "172.18.0.1",   # Default Docker bridge network
     "127.0.0.1",    # Localhost inside the container
+    "10.147.17.101",
+    "192.168.65.1",
 ]
 
 # Lista de URLs permitidas (CORS)
@@ -26,6 +28,8 @@ ALLOWED_ORIGINS = [
     "http://10.147.17.216",
     "http://172.18.0.1",
     "http://127.0.0.1",
+    "http://10.147.17.101",
+    "http://192.168.65.1",
 ]
 
 # Middleware CORS
