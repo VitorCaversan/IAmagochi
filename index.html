@@ -100,26 +100,37 @@
          </div>
    
          <div class="talkBaloonContainer">
-            <img src="images/talkBaloon.png" alt="AI Input Background">
             <div id="chat-display"></div>
          </div>
-   
+
          <div class="status">
-            <img src="images/statusButton.png" alt="Status">
-            <meter id="anger" min="0" max="10" value="0" high="0"></meter>
-            <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
-            <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
-            <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
+            <label>Status</label>
+            <div class="status-container">
+               <img src="images/AngryFace.png" class="status-icon">
+               <meter id="anger" min="0" max="10" value="0" high="0"></meter>
+            </div>
+            <div class="status-container">
+               <img src="images/HappyFace.png" class="status-icon">
+               <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
+            </div>
+            <div class="status-container">
+               <img src="images/SleepyFace.png" class="status-icon">
+               <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
+            </div>
+            <div class="status-container">
+               <img src="images/StarveIcon.png" class="status-icon">
+               <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
+            </div>
          </div>
    
          <div class="play"><img src="images/playButton.png" alt="play"></div>
    
          <div class="writeBaloonContainer">
-            <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
-            <input type="text" id="chat-input" placeholder="Write here...">
+            <img src="images/talkBaloonTypeBox.png" alt="">
+            <input type="text" id="chat-input" placeholder="Talk with your buddy">
             <button id="chat-send-button">Send</button>
          </div>
-   
+         
          <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
          
       </div>

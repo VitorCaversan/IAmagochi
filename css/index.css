@@ -42,8 +42,7 @@ main {
       "pet     chatBox   status"
       "playBtn chatInput feedBtn";
    gap: 10px;
-   padding-top: 32px;
-   padding-bottom: 16px;
+   padding: 32px;
 }
 
 .header {
@@ -59,6 +58,10 @@ main {
 
 .home {
    width: 300px;
+}
+
+.status-icon {
+   width: 64px;
 }
 
 .settings-icon, .calendar-icon {
@@ -109,58 +112,60 @@ main {
 
 .talkBaloonContainer {
    grid-area: chatBox;
+   background-color: #b1d690;
    display: flex;
-   flex-direction: column;
-   align-self: center;
-   justify-self: center;
-   width: 100%;
-   height: 40vh;
    position: relative;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-left: 45px;
+   min-width: 300px;
+   min-height: 360px;
+   height: 40vh;
+   border-radius: 30px;
+   font-family: 'Press Start 2P';
+   gap: 8px;
 }
 
-/* STATUS */
 .status {
    grid-area: status;
-   display: flex;
-   justify-self: center;
-   align-self: center;
-   justify-content: left;
-   justify-items: left;
-   align-items: start;
-   align-content: start;
-   width: 100%;
-   height: 40vh;
+   background-color: #b1d690;
    position: relative;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   min-width: 300px;
+   min-height: 360px;
+   height: 40vh;
+   border-radius: 30px;
+   padding: 16px;
+   font-family: 'Press Start 2P';
+   gap: 8px;
 }
-.status img {
-   height: 100%;
-   width: auto;
-   object-fit: contain;
-   position: absolute;
-   z-index: 1;
-   left: 6%;
+
+.status label {
+   margin: 8px;
+   font-size: 1.5em;
+   color: #f8fae5;
+   font-family: 'Press Start 2P';
+   text-transform: uppercase;
+   text-align: center;
 }
+
+.status-container {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: 16px;
+}
+
 .status meter {
-   position: absolute;
-   z-index: 2;
-   width: 31%;
-   height: 100%;
+   width: 100%;
+   height: 64px;
 }
-#anger {
-   top: -30%;
-   left: 20%;
-}
-#happiness {
-   top: -10%;
-   left: 20%;
-}
-#sleepiness {
-   top: 11%;
-   left: 20%;
-}
-#hunger {
-   top: 33%;
-   left: 20%;
+
+meter::-webkit-meter-bar {
+   transform: scaleY(1.5);
 }
 
 .play {
@@ -178,24 +183,24 @@ main {
 
 .writeBaloonContainer {
    grid-area: chatInput;
-   display: flex;
-   flex-direction: column;
-   align-self: start;
-   justify-self: center;
-   justify-content: center;
-   align-content: center;
-   align-items: center;
-   justify-items: center;
-   height: 100%;
-   width: 100%;
-   min-height: 132px;
-   /* min-width: 550px; */
    position: relative;
+   background-color: #b1d690;
+   display: flex;
+   position: relative;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   border-radius: 30px;
+   font-family: 'Press Start 2P';
+   gap: 24px;
+   padding: 24px;
+   width: 100%;
+   height: 148px;
+   align-self: center;
 }
 
 .writeBaloonContainer img{
-   height: 132px;
-   width: 100%;
+   width: 128px;
 }
 
 .feed {
@@ -234,24 +239,33 @@ footer {
 .talkBaloonContainer img {
    width: 100%;
    height: 100%;
-   /* min-width: 550px; */
+   min-height: 360px;
    position: absolute;
    z-index: 1;
 }
 
-#chat-display {
+/* Triângulo do balão */
+.talkBaloonContainer::before {
+   content: "";
    position: absolute;
-   width: 80%;
-   height: 80%;
+   left: -45px; /* Ajusta a posição do triângulo */
+   top: 80px; /* Alinha verticalmente */
+   width: 0;
+   height: 0;
+   border-top: 60px solid transparent;
+   border-bottom: 0px solid transparent;
+   border-right: 80px solid #b1d690;
+ }
+
+#chat-display {
+   width: 90%;
+   height: 90%;
    object-fit: contain;
    padding: 10px;
    border: 1px solid #ccc;
    font-size: 16px;
    text-align: start;
    border-radius: 5px;
-   z-index: 2;
-   left: 15%;
-   top: 10%;
 }
 
 .talk-box {
@@ -261,33 +275,28 @@ footer {
 }
 
 #chat-input {
-   position: absolute;
    z-index: 2;
-   width: 75%;
-   height: 30%;
-   left: 21%;
-   border-radius: 2px;
+   width: 100%;
+   height: 100%;
+   border-radius: 16px;
    padding: 10px;
-   border: none;
+   border: solid black 3px;
    background: rgba(255, 255, 255, 0.8); /* Optional: Add background for better visibility */
 }
 
 #chat-send-button {
-   background-color: #b1d690;
+   grid-area: chatInput;
+   background-color: orange;
    color: white;
    border: none;
    border-radius: 50%;
    cursor: pointer;
-   width: 15%;
-   height: 15%;
-   top: 35%;
-   margin-top: 32px;
-   height: 40px;
-   width: 72px;
+   height: 48px;
+   width: 48px;
 }
 
 #chat-send-button:hover {
-   background-color: #b1d690;
+   /* background-color: #b1d690; */
 }
 
 
@@ -539,8 +548,36 @@ footer {
    .play, .feed {
       grid-area: buttons;
    }
+
+   .petSprite {
+      left: -20%;
+   }
+
+   .talkBaloonContainer {
+      margin: 0;
+   }
+
+   .talkBaloonContainer::before {
+      left: 290px; 
+      top: -50px;
+      border-top: 0 solid transparent;
+      border-bottom: 80px solid #b1d690;
+      border-right: 60px solid transparent;
+   }
+   
 }
 
 @media (max-width: 500px) {
- 
+   .talkBaloonContainer::before {
+      left: 200px; 
+   }
+
+   .writeBaloonContainer {
+      flex-direction: column;
+      height: 360px;
+   }
+
+   .home {
+      width: 200px;
+   }
 }
