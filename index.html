@@ -105,13 +105,13 @@
 
       <div class="status">
          <img src="images/statusButton.png" alt="Status">
-         <meter id="anger" min="0" max="10" value="0" high="0"></meter>
-         <meter id="happiness" min="0" max="10" value="0" high="0"></meter>
-         <meter id="sleepiness" min="0" max="10" value="0" high="0"></meter>
-         <meter id="hunger" min="0" max="10" value="0" high="0"></meter>
+         <meter id="anger" min="0" max="10" low="7" high="7" optimum="0" value="0"></meter>
+         <meter id="happiness" min="0" max="10" low="3" high="6" optimum="10" value="0"></meter>
+         <meter id="sleepiness" min="0" max="10" low="7" high="7" optimum="0" value="0"></meter>
+         <meter id="satiation" min="0" max="10" low="3" high="6" optimum="10" value="0"></meter>
       </div>
 
-      <div class="play"><img src="images/playButton.png" alt="play"></div>
+      <button class="play"><img src="images/playButton.png" alt="play"></button>
 
       <div class="writeBaloonContainer">
          <div class="talk-box"><img src="images/talkWithPetBox.png" alt="talk"></div>
@@ -119,7 +119,7 @@
          <button id="chat-send-button">Send</button>
       </div>
 
-      <div class="feed"><img src="images/feedButton.png" alt="feed"></div>
+      <button class="feed"><img src="images/feedButton.png" alt="feed"></button>
       
       <div class="bottom-left-image">
          <img src="images/arvorePixelada2.png" alt="Left Image">

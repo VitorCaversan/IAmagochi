@@ -144,7 +144,7 @@ body {
    top: 11%;
    left: 20%;
 }
-#hunger {
+#satiation {
    top: 33%;
    left: 20%;
 }
@@ -160,6 +160,8 @@ body {
    position: relative;
    right: 20px;
    cursor: pointer;
+   background-color: transparent;
+   border-color: transparent;
 }
 
 .writeBaloonContainer {
@@ -188,6 +190,8 @@ body {
    position: relative;
    left: 20px;
    cursor: pointer;
+   background-color: transparent;
+   border-color: transparent;
 }
 
 footer {
