@@ -237,6 +237,7 @@ form {
    padding: 8px 10px;
    cursor: pointer;
    font-size: 16px;
+   font-family: 'Press Start 2P';
 }
 .option input[type="radio"] {
    margin-right: 10px; /* Add space to the right of the radio buttons */
@@ -253,6 +254,7 @@ form {
    justify-self: center; /* Align the grid item to the center */
    height: auto;
    width: 80%;
+   font-family: 'Press Start 2P';
 }
 .pronoun .question {
    margin: 2%;
@@ -291,6 +293,7 @@ form {
    align-items: center;
    height: auto;
    width: 80%;
+   font-family: 'Press Start 2P';
 }
 .personality h2 {
    margin: 2%;
