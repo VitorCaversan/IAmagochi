@@ -196,14 +196,31 @@ document.addEventListener("DOMContentLoaded", () => {
     satiationMeter.value = satiation;
 
     // Update the pet's personality values
-    pet.personality.anger = anger;
-    pet.personality.happiness = happiness;
-    pet.attributes.energy = (10 - sleepiness);
-    pet.attributes.satiation = satiation;
+    pet.personality.anger = (anger >= 0) ? anger : 0;
+    pet.personality.happiness = (happiness >= 0) ? happiness : 0;
+    pet.attributes.energy = (10 - ((sleepiness >= 0) ? sleepiness : 0));
+    pet.attributes.satiation = (satiation >= 0) ? satiation : 0;
   }
 
   updateStatusMeters(pet.personality.anger,
                      pet.personality.happiness,
                      ((10-pet.attributes.energy)),
                      (pet.attributes.satiation));
+
+  const playBtn = document.querySelector('.play');
+  const feedBtn = document.querySelector('.feed');
+
+  playBtn.addEventListener('click', function () {
+    updateStatusMeters((pet.personality.anger + 1),
+                       (pet.personality.happiness + 1),
+                       ((10 - pet.attributes.energy) + 1),
+                       (pet.attributes.satiation - 1));
+  });
+
+  feedBtn.addEventListener('click', function () {
+    updateStatusMeters((pet.personality.anger - 1),
+                       (pet.personality.happiness + 1),
+                       ((10 - pet.attributes.energy) - 1),
+                       (pet.attributes.satiation + 1));
+  });
 });
