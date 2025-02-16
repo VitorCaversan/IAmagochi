@@ -40,7 +40,7 @@ main {
    grid-template-rows: auto;
    grid-template-areas:
       "pet     chatBox   status"
-      "playBtn chatInput feedBtn";
+      "chatInput chatInput buttons";
    gap: 10px;
    padding: 32px;
 }
@@ -69,7 +69,7 @@ main {
    height: 40px;
 }
 
-.settings-icon img, .calendar-icon img, .play img, .feed img, .home img, .talk-box img {
+.settings-icon img, .calendar-icon img, .send img, .play img, .feed img, .home img, .talk-box img {
    width: 100%;
    height: 100%;
    object-fit: contain;
@@ -168,24 +168,8 @@ meter::-webkit-meter-bar {
    transform: scaleY(1.5);
 }
 
-.play {
-   grid-area: playBtn;
-   margin-top: 10%;
-   width: 40%;
-   height: 40%;
-   display: flex;
-   justify-self: right;
-   align-self: start;
-   position: relative;
-   right: 20px;
-   cursor: pointer;
-   background-color: transparent;
-   border-color: transparent;
-}
-
 .writeBaloonContainer {
    grid-area: chatInput;
-   position: relative;
    background-color: #b1d690;
    display: flex;
    position: relative;
@@ -197,27 +181,31 @@ meter::-webkit-meter-bar {
    gap: 24px;
    padding: 24px;
    width: 100%;
-   height: 148px;
-   align-self: center;
+   max-width: 800px;
+   height: 192px;
+   justify-self: end;
 }
 
 .writeBaloonContainer img{
    width: 128px;
 }
 
-.feed {
-   grid-area: feedBtn;
-   margin-top: 10%;
-   width: 40%;
-   height: 40%;
+.buttons {
+   grid-area: buttons;
    display: flex;
-   justify-self: left;
-   align-self: start;
-   position: relative;
-   left: 20px;
+   flex-direction: row;
+   align-items: start;
+   justify-content: space-between;
+   padding: 0 16px;
+   gap: 8px;
+   max-width: 500px;
+}
+
+.buttons button {
    cursor: pointer;
    background-color: transparent;
    border-color: transparent;
+   width: 136px;
 }
 
 footer {
@@ -233,6 +221,7 @@ footer {
 
 .settings-icon img:hover,
 .home img:hover,
+.send img:hover,
 .play img:hover,
 .feed img:hover {
     transform: scale(1.1);  /* Add hover effect */
@@ -287,22 +276,6 @@ footer {
    border: solid black 3px;
    background: rgba(255, 255, 255, 0.8); /* Optional: Add background for better visibility */
 }
-
-#chat-send-button {
-   grid-area: chatInput;
-   background-color: orange;
-   color: white;
-   border: none;
-   border-radius: 50%;
-   cursor: pointer;
-   height: 48px;
-   width: 48px;
-}
-
-#chat-send-button:hover {
-   /* background-color: #b1d690; */
-}
-
 
 @keyframes catSprite {
    from {
@@ -529,7 +502,11 @@ footer {
          "status  status"
          "pet     chatBox"
          "chatInput chatInput"
-         "playBtn feedBtn";
+         "buttons buttons";
+   }
+
+   .writeBaloonContainer {
+      max-width: none;
    }
 
    main {
@@ -547,10 +524,6 @@ footer {
          "chatBox"
          "chatInput"
          "buttons";
-   }
-
-   .play, .feed {
-      grid-area: buttons;
    }
 
    .petSprite {
@@ -583,5 +556,9 @@ footer {
 
    .home {
       width: 200px;
+   }
+
+   .buttons button {
+      width: 96px;
    }
 }
