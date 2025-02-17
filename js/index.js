@@ -32,18 +32,47 @@ document.addEventListener("DOMContentLoaded", () => {
     chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the latest message
   }
 
+  function checkCalendarConfig() {
+   const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
+   return calendarConfig;
+ }
+
   function buildPrompt(userMessage) {
-    // Build a personality string from the pet's personality values.
-    const personality = pet.personality;
-    const personalityStr = `Rage (${personality.anger}), Happiness (${personality.happiness}), Sadness (${personality.sadness})`;
-
-    // Use pet attributes to indicate hunger and tiredness.
-    // (Adjust these calculations as needed based on your attributes' logic.)
-    const attributes = pet.attributes;
-    const petHunger = (METERS_MAX_VALUE - attributes.satiation); // Here, 'satiation' is used as a hunger indicator.
-    const petTiredness = (METERS_MAX_VALUE - attributes.energy);  // 'energy' indicates tiredness.
-
-    return `Pet Name: ${pet.petName}  User Nickname: ${pet.nickname}  Pet Species: ${pet.species}  Pet Personality: ${personalityStr}  Pet Hunger: ${petHunger}  Pet Tiredness: ${petTiredness}  Prioritize responding based on the pet's personality and current status. Make sure the response reflects the pet's emotional and physical state (e.g., hunger, tiredness, happiness, sadness, or rage). Use a short, friendly, and engaging tone as the pet would. Keep the language simple, suitable for a child aged 6-12, and make the Buddy sound like a curious and playful creature with a simple mind. user message: ${userMessage}`;
+   const pet = loadPet();
+   if (!pet) {
+     return userMessage;
+   }
+ 
+   const calendarConfig = checkCalendarConfig();
+ 
+   // If the user has NOT set up the calendar, block normal conversation:
+   if (!calendarConfig) {
+     return `
+       The user has NOT set up the calendar yet.
+       You are NOT allowed to proceed with normal conversation.
+       ONLY respond with a message that instructs the user to set up their calendar.
+       The pet's emotional and physical attributes are all measured on a 0–10 scale.
+       Use a short, friendly tone.
+       user message: ${userMessage}
+     `;
+   }
+   const personalityStr = `Rage (${pet.personality.anger}/10), Happiness (${pet.personality.happiness}/10), Sadness (${pet.personality.sadness}/10)`;
+   const petHunger = pet.attributes.satiation;  // 0–10
+   const petTiredness = pet.attributes.energy;  // 0–10
+   
+   return `
+     Pet Name: ${pet.petName}
+     User Nickname: ${pet.nickname}
+     Pet Species: ${pet.species}
+     Pet Personality: ${personalityStr}
+     Pet Hunger: ${petHunger}/10
+     Pet Tiredness: ${petTiredness}/10
+     All attributes are measured on a 0–10 scale.
+     Prioritize responding based on the pet's personality and current status.
+     Make sure the response reflects the pet's emotional and physical state.
+     Use a short, friendly tone.
+     user message: ${userMessage}
+   `;
   }
 
   // Event listener for the chat send button.
@@ -151,38 +180,47 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function fillCalendar(answer) {
-    const [studyTimeAnswer, sleepTimeAnswer] = answer.split('_');
+   const [studyTimeAnswer, sleepTimeAnswer] = answer.split('_');
+ 
+   // Save the calendar config to localStorage
+   const calendarConfig = {
+     studyTime: studyTimeAnswer,
+     sleepTime: sleepTimeAnswer
+   };
+   localStorage.setItem("calendarConfig", JSON.stringify(calendarConfig));
+ 
+   // (Existing code to mark hours as 'occupied')
+   const occupiedHours = {
+     'Morning': [8, 9, 10, 11],
+     'Afternoon': [12, 13, 14, 15],
+     'Morning-Afternoon': [7, 8, 9, 10, 12, 13, 14, 15],
+     '19h': [19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
+     '20h': [20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
+     '21h': [21, 22, 23, 0, 1, 2, 3, 4, 5],
+     '22h': [22, 23, 0, 1, 2, 3, 4, 5],
+   };
+ 
+   const days = document.querySelectorAll('.day');
+   days.forEach(day => {
+     const hoursContainer = day.querySelector('.hours');
+     hoursContainer.innerHTML = ''; // Clear previous hours
+ 
+     for (let hour = 0; hour < 24; hour++) {
+       const hourBlock = document.createElement('div');
+       hourBlock.classList.add('hour-block');
+       hourBlock.textContent = `${hour}:00`;
+       if (occupiedHours[studyTimeAnswer].includes(hour) ||
+           occupiedHours[sleepTimeAnswer].includes(hour)) {
+         hourBlock.classList.add('occupied');
+       }
+       hoursContainer.appendChild(hourBlock);
+     }
+   });
 
-    const occupiedHours = {
-      'Morning': [8, 9, 10, 11],
-      'Afternoon': [12, 13, 14, 15],
-      'Morning-Afternoon': [7, 8, 9, 10, 12, 13, 14, 15],
-      '19h': [19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
-      '20h': [20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
-      '21h': [21, 22, 23, 0, 1, 2, 3, 4, 5],
-      '22h': [22, 23, 0, 1, 2, 3, 4, 5],
-    };
-
-    const days = document.querySelectorAll('.day');
-    days.forEach(day => {
-      const hoursContainer = day.querySelector('.hours');
-      hoursContainer.innerHTML = ''; // Clear previous hours
-
-      for (let hour = 0; hour < 24; hour++) {
-        const hourBlock = document.createElement('div');
-        hourBlock.classList.add('hour-block');
-        hourBlock.textContent = `${hour}:00`;
-        if (occupiedHours[studyTimeAnswer].includes(hour) ||
-            occupiedHours[sleepTimeAnswer].includes(hour)) {
-          hourBlock.classList.add('occupied');
-        }
-        hoursContainer.appendChild(hourBlock);
-      }
-    });
-
-    calendar.style.display = 'block';
-    calendarOverlay.style.display = 'block';
-  }
+   calendar.style.display = 'block';
+   calendarOverlay.style.display = 'block';
+ }
+ 
 
   // -------------------------
   // STATUS METERS
