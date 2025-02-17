@@ -250,17 +250,17 @@ footer {
    border-right: 80px solid #b1d690;
  }
 
-#chat-display {
-   width: 90%;
-   height: 90%;
-   object-fit: contain;
-   padding: 10px;
-   border: 1px solid #ccc;
-   font-size: 16px;
-   text-align: start;
-   border-radius: 5px;
-}
-
+ #chat-display {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+ }
+ 
 .talk-box {
    width: 100%;
    position: absolute;

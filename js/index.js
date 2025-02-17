@@ -24,18 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatInput = document.getElementById("chat-input");
   const chatSendButton = document.getElementById("chat-send-button");
 
-  // Function to append a chat message to the chat display
   function appendMessage(sender, message) {
     const messageElement = document.createElement("p");
     messageElement.textContent = `${sender}: ${message}`;
     chatDisplay.appendChild(messageElement);
-    chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the latest message
+    chatDisplay.scrollTop = chatDisplay.scrollHeight;
   }
 
-  function checkCalendarConfig() {
-   const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
-   return calendarConfig;
- }
+    function checkCalendarConfig() {
+        const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
+        return calendarConfig;
+    }
 
   function buildPrompt(userMessage) {
    const pet = loadPet();
@@ -44,8 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
    }
  
    const calendarConfig = checkCalendarConfig();
- 
-   // If the user has NOT set up the calendar, block normal conversation:
+
    if (!calendarConfig) {
      return `
        The user has NOT set up the calendar yet.
@@ -56,17 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
        user message: ${userMessage}
      `;
    }
-   const personalityStr = `Rage (${pet.personality.anger}/10), Happiness (${pet.personality.happiness}/10), Sadness (${pet.personality.sadness}/10)`;
-   const petHunger = pet.attributes.satiation;  // 0–10
-   const petTiredness = pet.attributes.energy;  // 0–10
+   const personalityStr = `Rage (${pet.personality.anger}), Happiness (${pet.personality.happiness}), Sadness (${pet.personality.sadness})`;
+   const petHunger = pet.attributes.satiation;
+   const petTiredness = pet.attributes.energy;
    
    return `
      Pet Name: ${pet.petName}
      User Nickname: ${pet.nickname}
      Pet Species: ${pet.species}
      Pet Personality: ${personalityStr}
-     Pet Hunger: ${petHunger}/10
-     Pet Tiredness: ${petTiredness}/10
+     Pet Hunger: ${petHunger}
+     Pet Tiredness: ${petTiredness}
      All attributes are measured on a 0–10 scale.
      Prioritize responding based on the pet's personality and current status.
      Make sure the response reflects the pet's emotional and physical state.
@@ -75,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
    `;
   }
 
-  // Event listener for the chat send button.
   chatSendButton.addEventListener("click", async () => {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
@@ -83,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
     appendMessage("You", userMessage);
     chatInput.value = "";
 
-    // Build the prompt dynamically.
     const prompt = buildPrompt(userMessage);
 
     try {
@@ -95,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Allow sending a message with the Enter key.
   document.getElementById('chat-input').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -110,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const calendar = document.getElementById("calendar");
   const calendarOverlay = document.getElementById("calendar-overlay");
 
-  calendar.style.display = "none"; // Hide the calendar by default
+  calendar.style.display = "none";
 
   calendarToggleBtn.addEventListener('click', function () {
     if (calendar.style.display === 'none') {
@@ -181,15 +176,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fillCalendar(answer) {
    const [studyTimeAnswer, sleepTimeAnswer] = answer.split('_');
- 
-   // Save the calendar config to localStorage
+
    const calendarConfig = {
      studyTime: studyTimeAnswer,
      sleepTime: sleepTimeAnswer
    };
    localStorage.setItem("calendarConfig", JSON.stringify(calendarConfig));
- 
-   // (Existing code to mark hours as 'occupied')
+
    const occupiedHours = {
      'Morning': [8, 9, 10, 11],
      'Afternoon': [12, 13, 14, 15],
@@ -236,7 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sleepinessMeter.value = sleepiness;
     satiationMeter.value = satiation;
 
-    // Update the pet's personality and attributes ranging from 0 to 10
     pet.personality.anger = (anger >= 0) ? Math.min(anger, METERS_MAX_VALUE) : 0;
     pet.personality.happiness = (happiness >= 0) ? Math.min(happiness, METERS_MAX_VALUE) : 0;
     pet.attributes.energy = (METERS_MAX_VALUE - ((sleepiness >= 0) ? Math.min(sleepiness, METERS_MAX_VALUE) : 0));
@@ -272,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ticksToDecreaseHappiness = 0;
   });
 
-  // Make energy and satiation drop every time frame
   setInterval(() => {
     pet.attributes.energy = Math.max(pet.attributes.energy - 1, 0);
     pet.attributes.satiation = Math.max(pet.attributes.satiation - 1, 0);
