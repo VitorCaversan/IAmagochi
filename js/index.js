@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
    }
    const personalityStr = `Rage (${pet.personality.anger}), Happiness (${pet.personality.happiness}), Sadness (${pet.personality.sadness})`;
    const petHunger = 10 - pet.attributes.satiation;
-   const petTiredness = pet.attributes.energy;
+   const petTiredness = 10 - pet.attributes.energy;
    
    return `
      Pet Name: ${pet.petName}
