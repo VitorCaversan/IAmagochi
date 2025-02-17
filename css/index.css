@@ -234,20 +234,21 @@ footer {
    height: 100%;
    min-height: 360px;
    position: absolute;
-   z-index: 1;
+   z-index: 2;
 }
 
 /* Triângulo do balão */
 .talkBaloonContainer::before {
    content: "";
    position: absolute;
-   left: -45px; /* Ajusta a posição do triângulo */
-   top: 80px; /* Alinha verticalmente */
+   left: -45px;
+   top: 80px;
    width: 0;
    height: 0;
    border-top: 60px solid transparent;
    border-bottom: 0px solid transparent;
    border-right: 80px solid #b1d690;
+   z-index: 1;
  }
 
  #chat-display {
@@ -260,6 +261,7 @@ footer {
     background-color: transparent;
     border: 1px solid transparent;
     border-radius: 4px;
+    z-index: 3;
  }
  
 .talk-box {

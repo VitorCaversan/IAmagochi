@@ -1,4 +1,4 @@
-import { loadPet } from './petStorage.js';
+import { loadPet, savePet } from './petStorage.js';
 
 const METERS_MAX_VALUE = 10;
 const MS_TO_DECREASE_STATUS = 60000; // 60 seconds
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   function buildPrompt(userMessage) {
-   const pet = loadPet();
    if (!pet) {
      return userMessage;
    }
@@ -233,6 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
     pet.personality.happiness = (happiness >= 0) ? Math.min(happiness, METERS_MAX_VALUE) : 0;
     pet.attributes.energy = (METERS_MAX_VALUE - ((sleepiness >= 0) ? Math.min(sleepiness, METERS_MAX_VALUE) : 0));
     pet.attributes.satiation = (satiation >= 0) ? Math.min(satiation, METERS_MAX_VALUE) : 0;
+
+    savePet(pet);
   }
 
   updateStatusMeters(pet.personality.anger,
