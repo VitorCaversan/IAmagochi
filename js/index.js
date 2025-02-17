@@ -81,14 +81,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const prompt = buildPrompt(userMessage);
 
-    try {
-      const response = await fetch("http://10.147.17.5:5005/ask?prompt=" + encodeURIComponent(prompt));
-      const data = await response.json();
-      appendMessage("Buddy", data.response || "Sorry, I didn't understand that.");
-    } catch (error) {
-      appendMessage("Buddy", `Error: ${error.message}`);
-    }
-  });
+      try {
+         const response = await fetch("http://10.147.17.5:5005/ask?prompt=" + encodeURIComponent(prompt + userMessage));
+         const data = await response.json();
+         appendMessage("Buddy", data.response || "Sorry, I didn't understand that.");
+         // play pet speech
+         const chatSound = document.getElementById('chatSound');
+         chatSound.currentTime = 0;
+         chatSound.play();
+      } catch (error) {
+         appendMessage("Buddy", `Error: ${error.message}`);
+          // play pet speech
+          const chatSound = document.getElementById('chatSound');
+          chatSound.currentTime = 0;
+          chatSound.play();
+      }
+   });
 
   document.getElementById('chat-input').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
