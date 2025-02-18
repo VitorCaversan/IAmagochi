@@ -26,10 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function appendMessage(sender, message) {
     const messageElement = document.createElement("p");
-    messageElement.textContent = `${sender}: ${message}`;
+    const senderElement = document.createElement("strong");
+    senderElement.textContent = `${sender}: `;
+    const textNode = document.createTextNode(message);
+    messageElement.appendChild(senderElement);
+    messageElement.appendChild(textNode);
     chatDisplay.appendChild(messageElement);
     chatDisplay.scrollTop = chatDisplay.scrollHeight;
   }
+  
 
     function checkCalendarConfig() {
         const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
