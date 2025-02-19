@@ -98,6 +98,7 @@ function buildPrompt(userMessage) {
        ONLY respond with a message that instructs the user to set up their calendar.
        The pet's emotional and physical attributes are all measured on a 0–10 scale.
        Use a short, friendly tone.
+       IMPORTANT: Always respond in the same language as the user's message.
        user message: ${userMessage}
      `;
    }
@@ -108,6 +109,7 @@ function buildPrompt(userMessage) {
       You are NOT allowed to proceed with normal conversation.
       Respond ONLY with a short, friendly message telling the user they're busy now,
       and that they can return later to continue.
+      IMPORTANT: Always respond in the same language as the user's message.
       user message: ${userMessage}
     `;
    }
@@ -261,7 +263,7 @@ function fillCalendar(answer) {
      '19h': [19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
      '20h': [20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
      '21h': [21, 22, 23, 0, 1, 2, 3, 4, 5],
-     '22h': [22, 23, 0, 1, 2, 3, 4, 5],
+     '22h': [22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
    };
  
    const days = document.querySelectorAll('.day');
@@ -297,7 +299,7 @@ function fillCalendar(answer) {
       '19h': [19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
       '20h': [20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
       '21h': [21, 22, 23, 0, 1, 2, 3, 4, 5],
-      '22h': [22, 23, 0, 1, 2, 3, 4, 5]
+      '22h': [22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
     };
 
     const busyHours = new Set([
