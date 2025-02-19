@@ -1,17 +1,15 @@
 import { loadPet, savePet } from './petStorage.js';
 
 const METERS_MAX_VALUE = 10;
-const MS_TO_DECREASE_STATUS = 60000; // 60 seconds
+const MS_TO_DECREASE_STATUS = 60000;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Load pet data from storage. If none is found, redirect to pet creation.
   const pet = loadPet();
   if (!pet) {
     window.location.href = 'createPet.html';
     return;
   }
 
-  // Update the UI with the pet's name (if applicable)
   const petNameElement = document.querySelector('.pet-name');
   if (petNameElement) {
     petNameElement.textContent = pet.petName;
@@ -58,22 +56,37 @@ document.addEventListener("DOMContentLoaded", () => {
        user message: ${userMessage}
      `;
    }
+
+   if (isUserCurrentlyBusy()) {
+    return `
+      The user is currently in a busy hour (study or sleep time).
+      You are NOT allowed to proceed with normal conversation.
+      Respond ONLY with a short, friendly message telling the user they're busy now,
+      and that they can return later to continue.
+      user message: ${userMessage}
+    `;
+   }
+
    const personalityStr = `Rage (${pet.personality.anger}), Happiness (${pet.personality.happiness}), Sadness (${pet.personality.sadness})`;
    const petHunger = 10 - pet.attributes.satiation;
    const petTiredness = 10 - pet.attributes.energy;
    
    return `
-     Pet Name: ${pet.petName}
-     User Nickname: ${pet.nickname}
-     Pet Species: ${pet.species}
-     Pet Personality: ${personalityStr}
-     Pet Hunger: ${petHunger}
-     Pet Tiredness: ${petTiredness}
-     All attributes are measured on a 0–10 scale.
-     Prioritize responding based on the pet's personality and current status.
-     Make sure the response reflects the pet's emotional and physical state.
-     Use a short, friendly tone.
-     user message: ${userMessage}
+    Pet Name: ${pet.petName}
+    Nickname: ${pet.nickname}
+    Species: ${pet.species}
+
+    Internal usage only:
+    Personality: ${personalityStr}
+    Hunger level: ${petHunger} (0-10)
+    Tiredness level: ${petTiredness} (0-10)
+
+    Important: Do NOT mention numeric values or attribute names directly.
+    Reflect the pet's emotional and physical state in a short, friendly tone simple minded creature.
+
+    IMPORTANT: Always respond in the same language as the user's message.
+
+    user message: ${userMessage}
    `;
   }
 
@@ -186,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  function fillCalendar(answer) {
+function fillCalendar(answer) {
    const [studyTimeAnswer, sleepTimeAnswer] = answer.split('_');
 
    const calendarConfig = {
@@ -221,11 +234,37 @@ document.addEventListener("DOMContentLoaded", () => {
        hoursContainer.appendChild(hourBlock);
      }
    });
-
    calendar.style.display = 'block';
    calendarOverlay.style.display = 'block';
  }
  
+ function isUserCurrentlyBusy() {
+    const config = JSON.parse(localStorage.getItem("calendarConfig"));
+    if (!config) return false;
+    
+    const { studyTime, sleepTime } = config;
+
+    const occupiedHoursMap = {
+      'Morning': [8, 9, 10, 11],
+      'Afternoon': [12, 13, 14, 15],
+      'Morning-Afternoon': [7, 8, 9, 10, 12, 13, 14, 15],
+      '19h': [19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
+      '20h': [20, 21, 22, 23, 0, 1, 2, 3, 4, 5],
+      '21h': [21, 22, 23, 0, 1, 2, 3, 4, 5],
+      '22h': [22, 23, 0, 1, 2, 3, 4, 5]
+    };
+
+    const busyHours = new Set([
+      ... (occupiedHoursMap[studyTime] || []),
+      ... (occupiedHoursMap[sleepTime] || [])
+    ]);
+
+    const currentHour = new Date().getHours();
+
+    return busyHours.has(currentHour);
+}
+  
+
 
   // -------------------------
   // STATUS METERS
