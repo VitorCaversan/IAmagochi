@@ -10,11 +10,11 @@ function typeText(element, text, isBuddy = false) {
       const messageParagraph = document.createElement('p');
       
       if (isBuddy) {
-          messageParagraph.style.color = '#107c0f';
+          messageParagraph.style.color = '#000';
       }
       
       if (text === "Buddy: ...") {
-          messageParagraph.style.color = '#a1a1a1';
+          messageParagraph.style.color = '#000';
           messageParagraph.innerHTML = '<strong>Buddy:</strong> <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
           element.appendChild(messageParagraph);
           
@@ -27,10 +27,7 @@ function typeText(element, text, isBuddy = false) {
           resolve(messageParagraph);
           return;
       }
-
       element.appendChild(messageParagraph);
-      
-      // split the text into sender and message parts
       const [sender, ...messageParts] = text.split(':');
       const message = messageParts.join(':');
       
@@ -67,30 +64,30 @@ document.addEventListener("DOMContentLoaded", () => {
     petNameElement.textContent = pet.petName;
   }
 
-  // -------------------------
-  // CHAT FUNCTIONALITY
-  // -------------------------
-  const chatDisplay = document.getElementById("chat-display");
-  const chatInput = document.getElementById("chat-input");
-  const chatSendButton = document.getElementById("chat-send-button");
+// -------------------------
+// CHAT FUNCTIONALITY
+// -------------------------
 
-  async function appendMessage(sender, message) {    
+const chatDisplay = document.getElementById("chat-display");
+const chatInput = document.getElementById("chat-input");
+const chatSendButton = document.getElementById("chat-send-button");
+
+async function appendMessage(sender, message) {    
     chatDisplay.scrollTop = chatDisplay.scrollHeight;
     const fullMessage = `${sender}: ${message}`;
     const isBuddy = sender === "Buddy";
     return typeText(chatDisplay, fullMessage, isBuddy);
-  }
+}
   
+function checkCalendarConfig() {
+    const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
+    return calendarConfig;
+}
 
-    function checkCalendarConfig() {
-        const calendarConfig = JSON.parse(localStorage.getItem("calendarConfig"));
-        return calendarConfig;
+function buildPrompt(userMessage) {
+    if (!pet) {
+        return userMessage;
     }
-
-  function buildPrompt(userMessage) {
-   if (!pet) {
-     return userMessage;
-   }
  
    const calendarConfig = checkCalendarConfig();
 
@@ -141,11 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
   chatSendButton.addEventListener("click", async () => {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
-
     await appendMessage("You", userMessage);
     chatInput.value = "";
-
-    // Show typing indicator
     const typingIndicator = await appendMessage("Buddy", "...");
 
     const prompt = buildPrompt(userMessage);
@@ -153,21 +147,15 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
          const response = await fetch("http://10.147.17.5:5005/ask?prompt=" + encodeURIComponent(prompt + userMessage));
          const data = await response.json();
-
-         // Remove typing indicator
          typingIndicator.remove();
-
          appendMessage("Buddy", data.response || "Sorry, I didn't understand that.");
-         // play pet speech
          const chatSound = document.getElementById('chatSound');
          chatSound.currentTime = 0;
          chatSound.play();
       } catch (error) {
-        // Remove typing indicator
         typingIndicator.remove();
 
         appendMessage("Buddy", `Error: ${error.message}`);
-        // play pet speech
         const chatSound = document.getElementById('chatSound');
         chatSound.currentTime = 0;
         chatSound.play();
