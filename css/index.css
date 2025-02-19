@@ -568,3 +568,15 @@ footer {
       width: 96px;
    }
 }
+
+/* dots animation */
+.dot {
+   display: inline-block;
+   animation: wave 1s ease-in-out infinite;
+   color: #a1a1a1;
+}
+
+@keyframes wave {
+   0%, 100% { transform: translateY(0); }
+   50% { transform: translateY(-2px); }
+}

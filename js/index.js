@@ -3,6 +3,58 @@ import { loadPet, savePet } from './petStorage.js';
 const METERS_MAX_VALUE = 10;
 const MS_TO_DECREASE_STATUS = 60000; // 60 seconds
 
+function typeText(element, text, isBuddy = false) {
+  return new Promise((resolve) => {
+      const speed = 30;
+      let index = 0;
+      const messageParagraph = document.createElement('p');
+      
+      if (isBuddy) {
+          messageParagraph.style.color = '#107c0f';
+      }
+      
+      if (text === "Buddy: ...") {
+          messageParagraph.style.color = '#a1a1a1';
+          messageParagraph.innerHTML = '<strong>Buddy:</strong> <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+          element.appendChild(messageParagraph);
+          
+          // add animation to the dots
+          const dots = messageParagraph.querySelectorAll('.dot');
+          dots.forEach((dot, i) => {
+              dot.style.animationDelay = `${i * 0.15}s`;
+          });
+          
+          resolve(messageParagraph);
+          return;
+      }
+
+      element.appendChild(messageParagraph);
+      
+      // split the text into sender and message parts
+      const [sender, ...messageParts] = text.split(':');
+      const message = messageParts.join(':');
+      
+      messageParagraph.innerHTML = `<strong>${sender}:</strong>`;
+
+      function type() {
+          if (index < message.length) {
+              messageParagraph.innerHTML = `<strong>${sender}:</strong>${message.substring(0, index + 1)}`;
+              index++;
+              setTimeout(type, speed);
+          } else {
+              resolve(messageParagraph);
+          }
+      }
+
+      if (isBuddy) {
+          type();
+      } else {
+          messageParagraph.innerHTML = `<strong>${sender}:</strong>${message}`;
+          resolve(messageParagraph);
+      }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Load pet data from storage. If none is found, redirect to pet creation.
   const pet = loadPet();
@@ -24,15 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatInput = document.getElementById("chat-input");
   const chatSendButton = document.getElementById("chat-send-button");
 
-  function appendMessage(sender, message) {
-    const messageElement = document.createElement("p");
-    const senderElement = document.createElement("strong");
-    senderElement.textContent = `${sender}: `;
-    const textNode = document.createTextNode(message);
-    messageElement.appendChild(senderElement);
-    messageElement.appendChild(textNode);
-    chatDisplay.appendChild(messageElement);
+  async function appendMessage(sender, message) {    
     chatDisplay.scrollTop = chatDisplay.scrollHeight;
+    const fullMessage = `${sender}: ${message}`;
+    const isBuddy = sender === "Buddy";
+    return typeText(chatDisplay, fullMessage, isBuddy);
   }
   
 
@@ -81,25 +129,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
 
-    appendMessage("You", userMessage);
+    await appendMessage("You", userMessage);
     chatInput.value = "";
+
+    // Show typing indicator
+    const typingIndicator = await appendMessage("Buddy", "...");
 
     const prompt = buildPrompt(userMessage);
 
       try {
          const response = await fetch("http://10.147.17.5:5005/ask?prompt=" + encodeURIComponent(prompt + userMessage));
          const data = await response.json();
+
+         // Remove typing indicator
+         typingIndicator.remove();
+
          appendMessage("Buddy", data.response || "Sorry, I didn't understand that.");
          // play pet speech
          const chatSound = document.getElementById('chatSound');
          chatSound.currentTime = 0;
          chatSound.play();
       } catch (error) {
-         appendMessage("Buddy", `Error: ${error.message}`);
-          // play pet speech
-          const chatSound = document.getElementById('chatSound');
-          chatSound.currentTime = 0;
-          chatSound.play();
+        // Remove typing indicator
+        typingIndicator.remove();
+
+        appendMessage("Buddy", `Error: ${error.message}`);
+        // play pet speech
+        const chatSound = document.getElementById('chatSound');
+        chatSound.currentTime = 0;
+        chatSound.play();
       }
    });
 
